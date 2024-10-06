@@ -14,7 +14,7 @@
     "env": {
       "BOT_TOKEN": {
         "description": "⦗ @Botfather ⦘ ↫ تـــوكـــن الـبـوت",
-        "value": "7047183887:AAHgiMlvkQebZHOkObnaE_5KdSoPf-pH4ZQ",
+        "value": "",
         "required": true
       },
       "OWNER_ID": {
@@ -34,12 +34,12 @@
       },
       "STRING_SESSION": {
         "description": "⦗ V2 ⦘ ↫ كـود جلسـة الحسـاب المساعـد لـ الميـوزك",
-        "value": "BAGB5kgAYq1swGFQcKOWdDkcMEoYawHsY4j67IxVQx3ljq4nBRpPEOTYp5rJldlCu-eKup_JoyvH5jjtSHV6SK8QimbOV-Xv8evhkTl83hBBqxjaaLt3Z8pkrmKcGrvD38OsTKcTdcZGLlUYdp55Ckyl4_nQxl396O4d5nDxKMUt8bLflhUrvNGf7R59jq24CtQz5O9Vhm_CeVMt95d9ROyOJ1eE29WgTrg8QmgbtkbpMYDPfUjf_MWjZjFM9AZRYopIdOta0XG6VI2cB6ABKXH4PLw4Rul_TZX_IX4wwg0LehgWORH3TQqfqrmBujdeeXsh0qgI-sZ5XzAqKCsWNJN5NuyqaAAAAAGqfwr9AA",
+        "value": "",
         "required": true
       },
       "HEROKU_API_KEY": {
         "description": "⦗ https://dashboard.heroku.com/account ⦘ ادخـل كود ايبـي كـي",
-        "value": "HRKU-de13688a-f300-483e-8d01-89663489577d",
+        "value": "",
         "required": false
       },
       "HEROKU_APP_NAME": {
