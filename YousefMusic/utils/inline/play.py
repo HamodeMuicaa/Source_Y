@@ -64,11 +64,10 @@ def stream_markup_timer(_, chat_id, played, dur):
         [
         InlineKeyboardButton(
                  "ᏟᎻᎪΝΝᎬᏞ", url=YAFA_CHANNEL
-            ),
+            )
         ],
-        [   InlineKeyboardButton(name, user_id=id)],
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
-        ],
+        [InlineKeyboardButton(name, user_id=id)],
+        [InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]
     return buttons
 
@@ -82,11 +81,10 @@ def stream_markup(_, chat_id):
         [
         InlineKeyboardButton(
                  "ᏟᎻᎪΝΝᎬᏞ", url=YAFA_CHANNEL
-            ),
+            )
         ],
-        [   InlineKeyboardButton(name, user_id=id)],
-            InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close"),
-        ],
+        [InlineKeyboardButton(name, user_id=id)],
+        [InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data="close")],
     ]
     return buttons
 
