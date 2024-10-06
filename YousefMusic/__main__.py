@@ -42,7 +42,7 @@ async def init():
     await Zoro.start()
 
     await Zoro.decorators()
-    LOGGER("ميــوزك بحر").info("──# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v\n──")
+    LOGGER("ميــوزك بحر").info("# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v\n──")
     await idle()
     await app.stop()
     await userbot.stop()
