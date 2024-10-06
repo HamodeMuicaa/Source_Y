@@ -25,9 +25,10 @@ class Zoro(Client):
         self.mention = self.me.mention
 
         try:
-            await self.send_message(
+            await self.send_photo(
                 chat_id=config.LOGGER_ID,
-                text=f"<u><b>» تم تشغيل الميـوزك لـ البوت {self.mention} :</b><u>\n\n- ɪᴅ : <code>{self.id}</code>\n- ɴᴀᴍᴇ : {self.name}\n- ᴜsᴇʀɴᴀᴍᴇ : @{self.username}",
+                photo="https://forkgraph.zaid.pro/file/CyY9CNwrPaNW",
+                caption=f"<b> {self.mention}\n تم تشغيل البـوت :\n على سورس بحر :\nɴᴀᴍᴇ : {self.name}\nᴜꜱᴇʀ ɴᴀᴍᴇ : @{self.username}\nɪᴅ : {self.id}</b>",
             )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
             LOGGER(__name__).error(
