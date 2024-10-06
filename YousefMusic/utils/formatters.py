@@ -1,7 +1,7 @@
 import json
 import subprocess
 
-
+# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .Tele_https://t.me/Y_o_V
 def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
