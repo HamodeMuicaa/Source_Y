@@ -35,7 +35,7 @@ from YousefMusic.utils.inline.settings import (
 )
 from YousefMusic.utils.inline.start import private_panel
 from config import BANNED_USERS, OWNER_ID
-
+# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .Tele_https://t.me/Y_o_V
 
 @app.on_message(
     filters.command(["settings", "setting"]) & filters.group & ~BANNED_USERS
