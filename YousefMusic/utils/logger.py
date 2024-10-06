@@ -5,7 +5,7 @@ from YousefMusic.utils.database import is_on_off
 from config import LOGGER_ID
 
 
-────# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .Tele_https://t.me/Y_o_V─────
+# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .Tele_https://t.me/Y_o_V
 
 async def play_logs(message, streamtype):
     if await is_on_off(2):
