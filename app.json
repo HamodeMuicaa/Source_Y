@@ -39,7 +39,7 @@
       },
       "HEROKU_API_KEY": {
         "description": "⦗ https://dashboard.heroku.com/account ⦘ ادخـل كود ايبـي كـي",
-        "value": "",
+        "value": "HRKU-54b4abfa-a5a1-441b-9283-d3afc51c0a8c",
         "required": false
       },
       "HEROKU_APP_NAME": {
