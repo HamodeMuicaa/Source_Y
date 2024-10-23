@@ -1,128 +1,186 @@
-import re
-from os import getenv
-
-from dotenv import load_dotenv
+import time
+from pyrogram import Client, filters
 from pyrogram import filters
+from pyrogram.enums import ChatType
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from youtubesearchpython.__future__ import VideosSearch
 
-super_sudoers = [6094238403]
-
-load_dotenv()
-
-# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v
-API_ID = int(getenv("API_ID", 21769847))
-API_HASH = getenv("API_HASH", "d5031334164f12ef47a7f3c7c3116207")
-
-# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v
-BOT_TOKEN = getenv("BOT_TOKEN")
-BOT_NAME = getenv("BOT_NAME","")
-
-
-# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v
-MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://toxi:toxiiiic1234@atlascluster.dk5l1pm.mongodb.net/?retryWrites=true&w=majority")
-
-DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 2000))
-
-# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v
-LOGGER_ID = int(getenv("OWNER_ID","1872738364"))
-
-# Get this value from @FallenxBot on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID", 6094238403))
-# 𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 ⛥ 𓏺 Yousef .tele_https://t.me/y_o_v
-YAFA_CHANNEL = getenv("YAFA_CHANNEL", "https://t.me/cecrr")
-YAFA_NAME = getenv("YAFA_NAME", "• اضغط هنا للاشتراك •")#لاتبعصها
-CHANNEL_SUDO = getenv("CHANNEL_SUDO", "cecrr")# Fill # Fill this variable if your upstream repository is private
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/B_a_r/10119")#قناة السورس
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/cecrr")
-CHANNEL_NAME = getenv("CHANNEL_NAME", "كِتابات خَارج السرب")
-CHANNEL_LINK = getenv("CHANNEL_LINK", "cecrr")
-OWNER_CHANNEL = getenv("OWNER_CHANNEL", "https://t.me/cecrr")
-
-
-FAILED = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-
-## Fill these variables if you're deploying on heroku.
-# Your heroku app name
-HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
-# Get it from http://dashboard.heroku.com/account
-HEROKU_API_KEY = getenv("HEROKU_API_KEY")
-
-UPSTREAM_REPO = getenv(
-    "UPSTREAM_REPO",
-    "https://github.com/yousef1yt/Source_Y",
+import config
+from AnonXMusic import app
+from AnonXMusic.misc import _boot_
+from AnonXMusic.plugins.sudo.sudoers import sudoers_list
+from AnonXMusic.plugins.play.keyboard import devs
+from AnonXMusic.utils.database import (
+    add_served_chat,
+    add_served_channel,
+    is_served_channel,
+    is_served_chat,
+    add_served_user,
+    blacklisted_chats,
+    get_lang,
+    is_banned_user,
+    is_on_off,
 )
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Yousef")
-GIT_TOKEN = getenv(
-    "GIT_TOKEN", None
-)  # Fill this variable if your upstream repository is private
+from pyrogram.enums import ChatType
+from AnonXMusic.utils.decorators.language import LanguageStart
+from AnonXMusic.utils.decorators.must_join import must_join_ch
+from AnonXMusic.utils.formatters import get_readable_time
+from AnonXMusic.utils.inline import help_pannel, private_panel, start_panel
+from config import BANNED_USERS
+from strings import get_string
 
+# تعريف الدالة is_served_chat
+async def is_served_chat(chat_id):
+    # هنا يمكنك إضافة منطق التحقق من قاعدة البيانات
+    # على سبيل المثال:
+    # return chat_id in await get_served_chats()
+    return False  # هذا مثال، يجب تغييره وفقًا للمنطق الخاص بك
 
-# Set this to True if you want the assistant to automatically leave chats after an interval
-AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
+# تعريف الدالة add_served_chat
+async def add_served_chat(chat_id):
+    # هنا يمكنك إضافة منطق لإضافة الـ chat_id إلى قاعدة البيانات
+    pass  # ا
 
+@app.on_message(filters.text & ~filters.private, group=7)
+async def stats(c, msg):
+    if msg.chat.type == ChatType.CHANNEL:
+        if not await is_served_chat(msg.chat.id):
+            await add_served_chat(msg.chat.id)
+    else:
+        if not await is_served_chat(msg.chat.id):  # تأكد من استدعاء نفس الدالة
+            await add_served_chat(msg.chat.id)
+        
 
-# Get this credentials from https://developer.spotify.com/dashboard
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", None)
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", None)
-
-
-# Maximum limit for fetching playlist's track from youtube, spotify, apple links.
-PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 25))
-
-
-# Telegram audio and video file size limit (in bytes)
-TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", 104857600))
-TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
-# Checkout https://www.gbmb.org/mb-to-bytes for converting mb to bytes
-
-
-# Get your pyrogram v2 session from @StringFatherBot on Telegram
-STRING1 = getenv("STRING_SESSION", None)
-STRING2 = getenv("STRING_SESSION2", None)
-STRING3 = getenv("STRING_SESSION3", None)
-STRING4 = getenv("STRING_SESSION4", None)
-STRING5 = getenv("STRING_SESSION5", None)
-
-
-BANNED_USERS = filters.user()
-adminlist = {}
-lyrical = {}
-votemode = {}
-autoclean = []
-confirmer = {}
-
-
-
-START_IMG_URL = getenv(
-    "START_IMG_URL", "https://graph.org/file/cd2bf6082397483175f17.jpg"
-)
-START_video_URL = getenv(
-    "START_video_URL", "https://graph.org/file/c8e6ba128c7f4bf3e911b.mp4"
-)
-PING_IMG_URL = getenv(
-    "PING_IMG_URL", "https://graph.org/file/cd2bf6082397483175f17.jpg"
-)
-PLAYLIST_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-STATS_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-TELEGRAM_AUDIO_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-TELEGRAM_VIDEO_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-STREAM_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-SOUNCLOUD_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-YOUTUBE_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-SPOTIFY_ARTIST_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-SPOTIFY_ALBUM_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-SPOTIFY_PLAYLIST_IMG_URL = "https://graph.org/file/cd2bf6082397483175f17.jpg"
-
-
-def time_to_seconds(time):
-    stringt = str(time)
-    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
-
-
-DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
-
-
-if SUPPORT_CHANNEL:
-    if not re.match("(?:http|https)://", SUPPORT_CHANNEL):
-        raise SystemExit(
-            "[ERROR] - Your SUPPORT_CHANNEL url is wrong. Please ensure that it starts with https://"
+@app.on_message(filters.command(["start"]) & filters.private & ~devs & ~BANNED_USERS)
+@must_join_ch
+@LanguageStart
+async def start_pm(client, message: Message, _):
+    await add_served_user(client, message.from_user.id)
+    if len(message.text.split()) > 1:
+        name = message.text.split(None, 1)[1]
+        if name[0:4] == "help":
+            keyboard = help_pannel(_)
+            return await message.reply_photo(
+                photo=config.START_IMG_URL,
+                caption=_["help_1"].format(config.SUPPORT_CHAT),
+                reply_markup=keyboard,
+            )
+        if name[0:3] == "sud":
+            await sudoers_list(client=client, message=message, _=_)
+            if await is_on_off(2):
+                return await app.send_message(
+                    chat_id=config.LOGGER_ID,
+                    text=f"{message.from_user.mention} هناك شخص دخل الى بوت <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                )
+            return
+        if name[0:3] == "inf":
+            m = await message.reply_text("🔎")
+            query = (str(name)).replace("info_", "", 1)
+            query = f"https://www.youtube.com/watch?v={query}"
+            results = VideosSearch(query, limit=1)
+            for result in (await results.next())["result"]:
+                title = result["title"]
+                duration = result["duration"]
+                views = result["viewCount"]["short"]
+                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+                channellink = result["channel"]["link"]
+                channel = result["channel"]["name"]
+                link = result["link"]
+                published = result["publishedTime"]
+            searched_text = _["start_6"].format(
+                title, duration, views, published, channellink, channel, app.mention
+            )
+            key = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(text=_["S_B_8"], url=link),
+                        InlineKeyboardButton(text=_["S_B_9"], url=config.SUPPORT_CHAT),
+                    ],
+                ]
+            )
+            await m.delete()
+            await app.send_photo(
+                chat_id=message.chat.id,
+                photo=thumbnail,
+                caption=searched_text,
+                reply_markup=key,
+            )
+            if await is_on_off(2):
+                return await app.send_message(
+                    chat_id=config.LOGGER_ID,
+                    text=f"{message.from_user.mention} هناك شخص دخل الى بوت <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                )
+    else:
+        await message.reply("<b>اهلا بك عزيز المستخدم ⚡ ،</b>")
+        if client.me.photo:
+            async for photo in app.get_chat_photos("me",limit=1):
+                start_img = photo.file_id
+        else:
+            start_img = config.START_IMG_URL
+        out = await private_panel(_, app)
+        await message.reply_photo(
+            photo=start_img,
+            caption=_["start_2"].format(message.from_user.mention, app.mention),
+            reply_markup=InlineKeyboardMarkup(out),
         )
+        if await is_on_off(2):
+            return await app.send_message(
+                chat_id=config.LOGGER_ID,
+                text=f"{message.from_user.mention} هناك شخص دخل الى بوت.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+            )
+
+
+@app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
+@LanguageStart
+async def start_gp(client, message: Message, _):
+    out = start_panel(_)
+    uptime = int(time.time() - _boot_)
+    await message.reply_photo(
+        photo=config.START_IMG_URL,
+        caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
+        reply_markup=InlineKeyboardMarkup(out),
+    )
+    return await add_served_chat(message.chat.id)
+
+
+@app.on_message(filters.new_chat_members, group=-1)
+async def welcome(client, message: Message):
+    for member in message.new_chat_members:
+        try:
+            language = await get_lang(message.chat.id)
+            _ = get_string(language)
+            if await is_banned_user(member.id):
+                try:
+                    await message.chat.ban_member(member.id)
+                except:
+                    pass
+            if member.id == app.id:
+                if message.chat.type != ChatType.SUPERGROUP:
+                    await message.reply_text(_["start_4"])
+                    return await app.leave_chat(message.chat.id)
+                if message.chat.id in await blacklisted_chats():
+                    await message.reply_text(
+                        _["start_5"].format(
+                            app.mention,
+                            f"https://t.me/{app.username}?start=sudolist",
+                            config.SUPPORT_CHAT,
+                        ),
+                        disable_web_page_preview=True,
+                    )
+                    return await app.leave_chat(message.chat.id)
+
+                out = start_panel(_)
+                await message.reply_photo(
+                    photo=config.START_IMG_URL,
+                    caption=_["start_3"].format(
+                        message.from_user.first_name,
+                        app.mention,
+                        message.chat.title,
+                        app.mention,
+                    ),
+                    reply_markup=InlineKeyboardMarkup(out),
+                )
+                await add_served_chat(message.chat.id)
+                await message.stop_propagation()
+        except Exception as ex:
+            print(ex)
